@@ -225,6 +225,11 @@ iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eius
 iab teh the
 iab Teh The
 
+"php abreviations
+iab <? <?php % ?><Esc>F%s<c-o>:call getchar()<CR>
+iab pubf public function %(){<cr>}<Esc>?%<Enter>s<c-o>:call getchar()<CR>
+
+
 "Peep open
 if has("gui_macvim")
    macmenu &File.New\ Tab key=<nop>
@@ -284,3 +289,26 @@ let g:jsbeautify = {"indent_size": 4, "indent_char": "\t"}
 
 "snipMate
 let g:snips_trigger_key='<c-space>'
+
+"hebrew
+imap <f2> <c-o>:call ToggleHebrew()<cr>
+map <f2> :call ToggleHebrew()<cr>
+ 
+" func! ToggleHebrew()
+"   if &rl
+"     set norl
+"     set keymap=
+"   else
+"     set rl
+"     set keymap=hebrew
+"   end
+" endfunc
+
+func! ToggleHebrew()
+  if &rl
+    set norl
+    set keymap=
+  else
+    set rl
+  end
+endfunc
