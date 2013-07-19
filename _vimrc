@@ -168,6 +168,8 @@ nmap <space> :
 "Automatically change current directory to that of the file in the buffer
 " autocmd BufEnter * cd %:p:h
 
+"return to last edited position in file
+
 "Map code completion to , + tab
 inoremap c<tab> <C-x><C-o>
 
@@ -216,7 +218,7 @@ nmap <C-l> <C-w>l
 "NERDTREE PLUGIN SETTINGS
 "------------------------"
 "Shortcut for NERDTreeToggle
-nmap <C-n>t :NERDTreeToggle
+nmap <leader>nt :NERDTreeToggle
 
 "Show hidden files in NerdTree
 let NERDTreeShowHidden=1
@@ -255,7 +257,10 @@ set foldmarker=[[,]]
 let @+=expand("%:p")
 
 "easymotion leader remapping
-let g:EasyMotion_leader_key = ','
+let g:EasyMotion_leader_key = '\'
+
+"Want a different map leader than \
+let mapleader = ","
 
 "copy directly to clipboard
 set clipboard=unnamed
