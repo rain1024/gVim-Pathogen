@@ -4,22 +4,24 @@
 " daogurtsov.github.com
 "
 
+"Pathogen
+" call pathogen#runtime_append_all_bundles() 
+execute pathogen#infect()
+
 "Forget compatibility with Vi. Who cares.
 set nocompatible
-"Enable filetypes
-filetype on
-filetype plugin on
-"Pathogen
-call pathogen#runtime_append_all_bundles() 
 
-filetype indent on
+"Enable filetypes
+filetype plugin indent on
 syntax on
+
 "length
 set lines=57
 "columns
 set columns=100
-"line numbers
-"set numbers
+
+"scrolling offset
+set scrolloff=15
 
 "Write the old file out when switching between files.
 set autowrite
@@ -36,23 +38,21 @@ set ruler
 "Cursor line ruler
 set cursorline
 
-"Adding abreviations
-"Want a different map leader than \
-"set mapleader = ",";
-
 "Ever notice a slight lag after typing the leader key + command? This lowers
 "the timeout.
+set timeout
 set timeoutlen=700
+set ttimeoutlen=100
 
 "Rip out swap file
-set noswapfile
+set swapfile
 
 "Switch between buffers without saving
 set hidden
 
 "Set the color scheme. Change this to your preference. 
 "Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
-colorscheme molokai 
+colorscheme wombat256mod 
 
 "Color column
 set colorcolumn=80
@@ -64,6 +64,7 @@ set tabstop=3
 set shiftwidth=3
 set softtabstop=3
 set expandtab
+set shiftround
 
 "Show command in bottom right portion of the screen
 set showcmd
@@ -77,7 +78,9 @@ set number
 "Indent stuff
 set smartindent
 set autoindent
-
+set linebreak
+"Auto indent
+autocmd BufRead, BufWritePre *.html normal gg=G
 "Force encode
 set fileencoding=utf-8
 set encoding=utf-8
@@ -92,12 +95,21 @@ set linespace=3
 set wrap
 set textwidth=60
 set formatoptions=qrn1
+set showbreak=>\
 
+"Search
 "Set incremental searching"
 set incsearch
 
 "Highlight searching
 set hlsearch
+
+" "Switch on magic mode for regex
+nnoremap / /\v
+vnoremap / /\v
+
+nnoremap ? ?\v
+vnoremap ? ?\v
 
 " case insensitive search
 set ignorecase
@@ -122,7 +134,7 @@ nnoremap <leader>ft Vatzf
 set dictionary+=C:\Program\ Files\ \(x86\)\Vim\vimfiles\dict.txt
 
 " C-Space seems to work under gVim on both Linux and win32
-inoremap <C-Space> <C-n>
+"inoremap <C-Space> <C-n>
 
 "Opens a vertical split and switches over (\v)
 nnoremap <leader>v <C-w>v<C-w>l
@@ -135,10 +147,6 @@ set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
 
 "Set up an HTML5 template for all new .html files
 "autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-
-"Load the current buffer in Firefox - win specific.
-abbrev ff :!start cmd /k "C:\Program Files (x86)\Mozilla Firefox\firefox.exe" %:p<cr>
-"abbrev ff :! open -a firefox.app %:p<cr>
 
 "Map a change directory to the desktop - win specific
 nmap ,d :cd c:\Users\daogu_000\Desktop<cr>:e.<cr>
@@ -161,13 +169,13 @@ nmap <space> :
 " autocmd BufEnter * cd %:p:h
 
 "Map code completion to , + tab
-imap ,<tab> <C-x><C-o>
+inoremap c<tab> <C-x><C-o>
 
 " More useful command-line completion
-" set wildmenu
+set wildmenu
 
 "Auto-completion menu
-" set wildmode=list:longest
+set wildmode=list:longest
 
 "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
@@ -208,7 +216,7 @@ nmap <C-l> <C-w>l
 "NERDTREE PLUGIN SETTINGS
 "------------------------"
 "Shortcut for NERDTreeToggle
-nmap ,nt :NERDTreeToggle
+nmap <C-n>t :NERDTreeToggle
 
 "Show hidden files in NerdTree
 let NERDTreeShowHidden=1
@@ -221,13 +229,10 @@ autocmd VimEnter * wincmd p
 iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
 
-"Spelling corrects. Just for example. Add yours below.
-iab teh the
-iab Teh The
-
-"php abreviations
-iab <? <?php % ?><Esc>F%s<c-o>:call getchar()<CR>
-iab pubf public function %(){<cr>}<Esc>?%<Enter>s<c-o>:call getchar()<CR>
+"launch current file in chrome
+cnoreabbrev cr !start cmd /k chrome %:p<CR>
+"in firefox
+cnoreabbrev ff :!start cmd /k "C:\Program Files (x86)\Mozilla Firefox\firefox.exe" %:p<cr>
 
 
 "Peep open
@@ -242,10 +247,6 @@ end
 " set list 
 set listchars=eol:¬
 
-"Autocomplete navigation
-imap <Tab> <C-n>
-imap <S-Tab> <C-p>
-
 "set folding method and marker
 set fdm=marker
 set foldmarker=[[,]]
@@ -256,44 +257,27 @@ let @+=expand("%:p")
 "easymotion leader remapping
 let g:EasyMotion_leader_key = ','
 
-"capitalaize - has confilict with comment
-if (&tildeop)
- nmap gcw guw~l
- nmap gcW guW~l
- nmap gciw guiw~l
- nmap gciW guiW~l
- nmap gcis guis~l
- nmap gc$ gu$~l
- nmap gcgc guu~l
- nmap gcc guu~l
- vmap gc gu~l
-else
- nmap gcw guw~h
- nmap gcW guW~h
- nmap gciw guiw~h
- nmap gciW guiW~h
- nmap gcis guis~h
- nmap gc$ gu$~h
- nmap gcgc guu~h
- nmap gcc guu~h
- vmap gc gu~h
-endif
-
 "copy directly to clipboard
 set clipboard=unnamed
 
 "copy directly to clipboard vi-mode
+
 :set go+=a
 "jsbeautify
 let g:jsbeautify = {"indent_size": 4, "indent_char": "\t"} 
 
-"snipMate
-let g:snips_trigger_key='<c-space>'
+
+"sorround plugin change inside parentheses
+onoremap p i(
+
 
 "hebrew
 imap <f2> <c-o>:call ToggleHebrew()<cr>
 map <f2> :call ToggleHebrew()<cr>
- 
+
+"undofile use local history
+set undofile
+"hebrew keymap on
 " func! ToggleHebrew()
 "   if &rl
 "     set norl
@@ -303,6 +287,8 @@ map <f2> :call ToggleHebrew()<cr>
 "     set keymap=hebrew
 "   end
 " endfunc
+"current keymap and rtl on
+
 
 func! ToggleHebrew()
   if &rl
@@ -312,3 +298,15 @@ func! ToggleHebrew()
     set rl
   end
 endfunc
+
+"smart tab compleation
+function! InsertTabWrapper()
+   let col = col(".") - 1
+   if !col || getline(".")[col - 1] !~ "\k"
+      return "\<tab>"
+   else
+      return "\<c-n>"
+endfunction
+
+inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+inoremap <s-tab> <c-p>
