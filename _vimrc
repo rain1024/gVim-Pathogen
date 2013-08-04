@@ -1,19 +1,108 @@
-" .vimrc File
-" Maintained by:Dmitry Ogurtsov
-" daogurtsov@gmail.com
-" daogurtsov.github.com
-"
-
 "Pathogen
-" call pathogen#runtime_append_all_bundles() 
+"call pathogen#runtime_append_all_bundles()
 execute pathogen#infect()
-
-"Forget compatibility with Vi. Who cares.
+" Uncomment the next line to make Vim more Vi-compatible
+" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
+" options, so any other options should be set AFTER setting 'compatible'.
 set nocompatible
 
-"Enable filetypes
-filetype plugin indent on
-syntax on
+" Vim5 and later versions support syntax highlighting. Uncommenting the next
+" line enables syntax highlighting by default.
+if has("syntax")
+  syntax on
+endif
+
+" If using a dark background within the editing area and syntax highlighting
+" turn on this option as well
+"set background=dark
+
+" Uncomment the following to have Vim jump to the last position when
+" reopening a file
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
+" Uncomment the following to have Vim load indentation rules and plugins
+" according to the detected filetype.
+if has("autocmd")
+  filetype plugin indent on
+endif
+
+" Source the vimrc file after saving it. This way, you don't have to reload
+" Vim to see the changes.
+if has("autocmd")
+   autocmd bufwritepost .vimrc source $MYVIMRC
+endif
+
+"hebrew
+inoremap <f2> <c-o>:call ToggleHebrew()<cr>
+noremap <f2> :call ToggleHebrew()<cr>
+
+"hebrew keymap on
+func! ToggleHebrew()
+  if &rl
+    set norl
+    set keymap=
+  else
+    set rl
+    set keymap=hebrew
+  end
+endfunc
+
+"only rl direction and latin keymap
+" func! ToggleHebrew()
+"   if &rl
+"     set norl
+"     set keymap=
+"   else
+"     set rl
+"   end
+" endfunc
+
+"yank full file path to buffer
+let @+=expand("%:p")
+
+" The following are commented out as they cause vim to behave a lot
+" differently from regular Vi. They are highly recommended though.
+set showcmd		" Show (partial) command in status line.
+set showmatch		" Show matching brackets.
+set autowrite		" Automatically save before commands like :next and :make
+set mouse=a		" Enable mouse usage (all modes)
+"Hide mouse when typing
+set mousehide
+
+"Line ends charater
+" set list 
+set listchars=eol:~
+
+"undofile use local history
+set undofile
+
+"set folding method and marker
+set fdm=marker
+set foldmarker=[[,]]
+
+"Working directly equals file directory
+set autochdir
+
+"copy directly to clipboard
+set clipboard=unnamed
+
+"copy directly to clipboard vi-mode
+:set go+=a
+
+"GUI stuff
+"remove toolbar
+set guioptions-=T  "remove toolbar
+
+"Tab stuff
+set tabstop=3
+set shiftwidth=3
+set softtabstop=3
+set expandtab
+set shiftround
+
+"Typing area
 
 "length
 set lines=57
@@ -23,70 +112,14 @@ set columns=100
 "scrolling offset
 set scrolloff=15
 
-"Write the old file out when switching between files.
-set autowrite
-
 "Backspace all line.
 set backspace=indent,eol,start
-
-"Default flag for substitution
-set gdefault
 
 "Display current cursor position in lower right corner.
 set ruler
 
 "Cursor line ruler
 set cursorline
-
-"Ever notice a slight lag after typing the leader key + command? This lowers
-"the timeout.
-set timeout
-set timeoutlen=700
-set ttimeoutlen=100
-
-"Rip out swap file
-set swapfile
-
-"Switch between buffers without saving
-set hidden
-
-"Set the color scheme. Change this to your preference. 
-"Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
-colorscheme wombat256mod 
-
-"Color column
-set colorcolumn=80
-"Set font type and size. Depends on the resolution. Larger screens, prefer h15
-set guifont=Courier\ New:h11
-
-"Tab stuff
-set tabstop=3
-set shiftwidth=3
-set softtabstop=3
-set expandtab
-set shiftround
-
-"Show command in bottom right portion of the screen
-set showcmd
-
-"Show lines numbers
-set number
-
-"Prefer relative line numbering?
-"set relativenumber"
-
-"Indent stuff
-set smartindent
-set autoindent
-set linebreak
-"Auto indent
-autocmd BufRead, BufWritePre *.html normal gg=G
-"Force encode
-set fileencoding=utf-8
-set encoding=utf-8
-
-"Always show the status line
-set laststatus=2
 
 "Prefer a slightly higher line height
 set linespace=3
@@ -97,7 +130,47 @@ set textwidth=60
 set formatoptions=qrn1
 set showbreak=>\
 
+
+"Color column
+set colorcolumn=80
+
+"Show command in bottom right portion of the screen
+set showcmd
+
+"Show lines numbers
+set number
+
+"Prefer relative line numbering?
+"set relativenumber"
+"Always show the status line
+set laststatus=2
+
+"Theme
+
+"Set the color scheme. Change this to your preference. 
+"Here's 100 to choose from: http://www.vim.org/scripts/script.php?script_id=625
+colorscheme wombat256mod 
+
+"Set font type and size. Depends on the resolution. Larger screens, prefer h15
+set guifont=Courier\ New:h10
+
+
+"Backup
+
+"Write the old file out when switching between files.
+set autowrite
+
+"Treat swapfiles
+set swapfile
+
+"Switch between buffers without saving
+set hidden
+
+
 "Search
+
+"Default flag for substitution
+set gdefault
 "Set incremental searching"
 set incsearch
 
@@ -115,83 +188,95 @@ vnoremap ? ?\v
 set ignorecase
 set smartcase
 
-"Hide MacVim toolbar by default
-set go-=T
+
+
+"Ever notice a slight lag after typing the leader key + command? This lowers
+"the timeout.
+set timeout
+set timeoutlen=700
+set ttimeoutlen=100
+
+
+"Indent stuff
+set smartindent
+set autoindent
+set linebreak
+"Auto indent
+autocmd BufRead, BufWritePre *.html normal gg=G
+
+
+"Force encode
+set fileencoding=utf-8
+set encoding=utf-8
+
+"Paragraphs
 
 "Hard-wrap paragraphs of text
 nnoremap <leader>q gqip
 
+
 "Enable code folding
 set foldenable
-
-"Hide mouse when typing
-set mousehide
 
 "Shortcut to fold tags with leader (usually \) + ft
 nnoremap <leader>ft Vatzf
 
-" Create dictionary for custom expansions
-set dictionary+=C:\Program\ Files\ \(x86\)\Vim\vimfiles\dict.txt
 
-" C-Space seems to work under gVim on both Linux and win32
-"inoremap <C-Space> <C-n>
+"Autocomplete
+" Create dictionary for custom expansions
+set dictionary+=.vim/dict.txt
+
+
+" If non-zero, auto-popup is triggered by key mappings instead of
+" |CursorMovedI| event. This is useful to avoid auto-popup by moving
+" cursor in Insert mode.
+let g:acp_mappingDriven = 1
+
+"Splites
 
 "Opens a vertical split and switches over (\v)
 nnoremap <leader>v <C-w>v<C-w>l
 
+" easier window navigation
+nmap <C-h> <C-w>h
+nmap <C-j> <C-w>j
+nmap <C-k> <C-w>k
+nmap <C-l> <C-w>l
+
 "Split windows below the current window.
 set splitbelow              
-
-"Session settings
-set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
-
-"Set up an HTML5 template for all new .html files
-"autocmd BufNewFile * silent! 0r $VIMHOME/templates/%:e.tpl
-
-"Map a change directory to the desktop - win specific
-nmap ,d :cd c:\Users\daogu_000\Desktop<cr>:e.<cr>
-"nmap ,d :cd ~/Desktop<cr>:e.<cr>
 
 "Shortcut for editing  vimrc file in a new tab
 nmap ,ev :tabedit $MYVIMRC<cr>
 
-"Change zen coding plugin expansion key to shift + e
-let g:user_zen_expandabbr_key = '<c-z>'
-
-
-"Faster shortcut for commenting. Requires T-Comment plugin
-map ,c <c-_><c-_>
-
-"Saves time; maps the spacebar to colon
-nmap <space> :
-
-"Automatically change current directory to that of the file in the buffer
-" autocmd BufEnter * cd %:p:h
-
-"return to last edited position in file
-
-"Map code completion to , + tab
-inoremap c<tab> <C-x><C-o>
-
-" More useful command-line completion
-set wildmenu
-
-"Auto-completion menu
-set wildmode=list:longest
-
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-         \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-         \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"Keymappings
+"Want a different map leader than \
+let mapleader = ","
+"easymotion leader remapping
+let g:EasyMotion_leader_key = '\'
 
 "Map escape key to jj -- much faster
 imap jj <esc>
 
+
+"Session settings
+set sessionoptions=resize,winpos,winsize,buffers,tabpages,folds,curdir,help
+
+"Map a change directory to the desktop
+nmap <leader>d :cd ~/Desktop<cr>:tabe.<cr>
+
+
+"Change zen coding plugin expansion key to ctrl+z
+let g:user_zen_expandabbr_key = '<c-z>'
+
+
+"Commenting
+"Faster shortcut for commenting. Requires T-Comment plugin
+map <leader>c <c-_><c-_>
+
 "Delete all buffers (via Derek Wyatt)
-nmap <silent> ,da :exec "1," . bufnr('$') . "bd"<cr>
+nmap <silent> <leader>da :exec "1," . bufnr('$') . "bd"<cr>
+
 
 "Bubble single lines (kicks butt)
 "http://vimcasts.org/episodes/bubbling-text/
@@ -202,23 +287,14 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-" Source the vimrc file after saving it. This way, you don't have to reload
-" Vim to see the changes.
-if has("autocmd")
-   autocmd bufwritepost .vimrc source $MYVIMRC
-endif
-"
-" easier window navigation
-nmap <C-h> <C-w>h
-nmap <C-j> <C-w>j
-nmap <C-k> <C-w>k
-nmap <C-l> <C-w>l
+
+
 
 "------------------------"
 "NERDTREE PLUGIN SETTINGS
 "------------------------"
 "Shortcut for NERDTreeToggle
-nmap <leader>nt :NERDTreeToggle
+nnoremap <leader>nt :NERDTreeToggle<cr>
 
 "Show hidden files in NerdTree
 let NERDTreeShowHidden=1
@@ -227,91 +303,20 @@ let NERDTreeShowHidden=1
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
 
-"Helpeful abbreviations
-iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-iab llorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
 
-"launch current file in chrome
-cnoreabbrev cr !start cmd /k chrome %:p<CR>
-"in firefox
-cnoreabbrev ff :!start cmd /k "C:\Program Files (x86)\Mozilla Firefox\firefox.exe" %:p<cr>
+"JSBEAUTIFY
+"js
+autocmd FileType javascript noremap <buffer>  <leader>b :call g:Jsbeautify()<cr>
 
-
-"Peep open
-if has("gui_macvim")
-   macmenu &File.New\ Tab key=<nop>
-   map <c-o> <Plug>PeepOpen
-end
-"Auto php
-"au BufRead, BufNewFile *.php setfiletype php
-
-"Line ends charater
-" set list 
-set listchars=eol:¬
-
-"set folding method and marker
-set fdm=marker
-set foldmarker=[[,]]
-
-"yank full file path to buffer
-let @+=expand("%:p")
-
-"easymotion leader remapping
-let g:EasyMotion_leader_key = '\'
-
-"Want a different map leader than \
-let mapleader = ","
-
-"copy directly to clipboard
-set clipboard=unnamed
-
-"copy directly to clipboard vi-mode
-
-:set go+=a
-"jsbeautify
-let g:jsbeautify = {"indent_size": 4, "indent_char": "\t"} 
-
-
-"sorround plugin change inside parentheses
+"SORROUND PLUGIN
+"change inside parentheses
 onoremap p i(
 
 
-"hebrew
-imap <f2> <c-o>:call ToggleHebrew()<cr>
-map <f2> :call ToggleHebrew()<cr>
+"Abreviations
+iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 
-"undofile use local history
-set undofile
-"hebrew keymap on
-" func! ToggleHebrew()
-"   if &rl
-"     set norl
-"     set keymap=
-"   else
-"     set rl
-"     set keymap=hebrew
-"   end
-" endfunc
-"current keymap and rtl on
+"launch current file in chrome
+cnoreabbrev ch :!chrome  %:p <CR>
 
 
-func! ToggleHebrew()
-  if &rl
-    set norl
-    set keymap=
-  else
-    set rl
-  end
-endfunc
-
-"smart tab compleation
-function! InsertTabWrapper()
-   let col = col(".") - 1
-   if !col || getline(".")[col - 1] !~ "\k"
-      return "\<tab>"
-   else
-      return "\<c-n>"
-endfunction
-
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-p>
