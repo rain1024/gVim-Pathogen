@@ -1,4 +1,4 @@
-gVim-Pathogen
-=============
+# gvim-7.3-pathogen for Windows
+=================================
+all plugins updated on 07/30/2013
 
-gVim for windows with multiple plugins, all plugins updated on 2013/1/8
