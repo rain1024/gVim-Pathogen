@@ -193,7 +193,7 @@ set smartcase
 "Ever notice a slight lag after typing the leader key + command? This lowers
 "the timeout.
 set timeout
-set timeoutlen=700
+set timeoutlen=300
 set ttimeoutlen=100
 
 
