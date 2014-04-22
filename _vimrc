@@ -318,5 +318,6 @@ iab lorem Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusm
 
 "launch current file in chrome
 cnoreabbrev ch :!chrome  %:p <CR>
-
-
+" fix indent
+" by Brother Rain, April 2014
+autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4
