@@ -2,13 +2,11 @@
 all plugins updated on 08/11/2013
 
 ### Python
-####
-> * App
-https://github.com/rain1024/gVim-Pathogen/issues/1
+#### Application
+> https://github.com/rain1024/gVim-Pathogen/issues/1
 
 #### Web Framework
-> * Web
-https://github.com/rain1024/gVim-Pathogen/issues/3
+> * Django, https://github.com/rain1024/gVim-Pathogen/issues/3
 
 
 
