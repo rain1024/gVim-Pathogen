@@ -1,8 +1,8 @@
-# gvim-7.4-pathogen for Windows
+# gVim for Windows
 all plugins updated on 08/11/2013
 
-## Python
+### Python
 > https://github.com/rain1024/gVim-Pathogen/issues/1
 
-## Javascript
+### Javascript
 > https://github.com/rain1024/gVim-Pathogen/issues/2
