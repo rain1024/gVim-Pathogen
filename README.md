@@ -1,8 +1,8 @@
 # gvim-7.4-pathogen for Windows
 all plugins updated on 08/11/2013
 
-## Python Convention
-http://google-styleguide.googlecode.com/svn/trunk/pyguide.html
+## Python
+> https://github.com/rain1024/gVim-Pathogen/issues/1
 
-## Settings
-No undofile
+## Javascript
+> https://github.com/rain1024/gVim-Pathogen/issues/2
