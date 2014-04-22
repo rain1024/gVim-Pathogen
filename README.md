@@ -1,4 +1,4 @@
-# gVim for Windows
+# Coding Life with gVim
 all plugins updated on 08/11/2013
 
 ### Python
