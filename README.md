@@ -12,3 +12,6 @@ all plugins updated on 08/11/2013
 
 ### Javascript
 > https://github.com/rain1024/gVim-Pathogen/issues/2
+
+### NodeJS
+> 
