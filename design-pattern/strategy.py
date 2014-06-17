@@ -24,3 +24,8 @@ if __name__ == "__main__" :
     strat0.execute()
     strat1.execute()
     strat2.execute()
+
+# Results
+#   Original execution
+#   Strategy 1
+#   Strategy 2
