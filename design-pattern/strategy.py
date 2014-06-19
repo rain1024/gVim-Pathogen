@@ -1,4 +1,7 @@
-# code from http://stackoverflow.com/questions/963965/how-is-this-strategy-pattern-written-in-python-the-sample-in-wikipedia
+# This code is copied from
+# http://stackoverflow.com/questions/963965/how-is-this-strategy-pattern-written-in-python-the-sample-in-wikipedia
+# Added by Brother Rain, Jun 16,2014
+
 class StrategyExample :
     def __init__(self, func=None):
         if func :
