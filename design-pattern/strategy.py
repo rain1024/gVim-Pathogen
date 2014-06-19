@@ -20,10 +20,15 @@ def executeReplacement2() :
 
 if __name__ == "__main__" :
 
-    strat0 = StrategyExample()
-    strat1 = StrategyExample(executeReplacement1)
-    strat2 = StrategyExample(executeReplacement2)
+    strategy0 = StrategyExample()
+    strategy1 = StrategyExample(executeReplacement1)
+    strategy2 = StrategyExample(executeReplacement2)
 
-    strat0.execute()
-    strat1.execute()
-    strat2.execute()
+    strategy0.execute()
+    strategy1.execute()
+    strategy2.execute()
+
+# Results
+#   Original execution
+#   Strategy 1
+#   Strategy 2
