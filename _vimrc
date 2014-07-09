@@ -76,7 +76,7 @@ set mousehide
 set listchars=eol:~
 
 "undofile use local history
-set undofile
+set noundofile
 
 "set folding method and marker
 set fdm=marker
@@ -161,7 +161,12 @@ set guifont=Courier\ New:h10
 set autowrite
 
 "Treat swapfiles
-set swapfile
+"no backup files
+set nobackup
+"only in case you don't want a backup file while editing
+set nowritebackup
+"no swap files
+set noswapfile
 
 "Switch between buffers without saving
 set hidden
