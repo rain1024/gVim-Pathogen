@@ -303,6 +303,7 @@ nnoremap <leader>nt :NERDTreeToggle<cr>
 
 "Show hidden files in NerdTree
 let NERDTreeShowHidden=1
+let g:NERDTreeCopyCmd= 'cp -r'
 
 "autopen NERDTree and focus cursor in new document
 autocmd VimEnter * NERDTree
